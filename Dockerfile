@@ -1,4 +1,4 @@
-FROM node:alpine as builder
+FROM node:alpine
 
 USER node
 
@@ -12,5 +12,6 @@ COPY --chown=node:node ./ ./
 CMD ["npm","run","build"]
 
 FROM nginx
-COPY --from=builder /home/node/app/build  /usr/share/nginx/html
+EXPOSE 80
+COPY --from=0 /home/node/app/build  /usr/share/nginx/html
 
